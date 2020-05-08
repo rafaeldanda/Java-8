@@ -1,0 +1,136 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <h:head>
+        <title>Cadastro de Estado</title>
+    </h:head>
+    <h:body>
+        <ui:composition template="/menus/MenuGerencia.xhtml">
+            <ui:define name="conteudo">
+                <f:view>
+
+                    <h:form id="msn" style="font-size: 15px;">
+
+                        <f:loadBundle basename="util.mensagens-pt-br" 
+                                      var="msg"/>
+
+                        <p:growl id="growl" showDetail="true" sticky="true" /> 
+
+
+                        <p:commandButton id="btnNovo" 
+                                         value="Novo"
+                                         action="#{gerenciamentoEstado.novo()}"
+                                         oncomplete="PF('estados').show()"/> 
+
+                        <p:dataTable  var="estado"
+                                      value="#{gerenciamentoEstado.listaEstado}" 
+                                      id="tabela"
+                                      style="text-align:  center;"
+                                      rows="9"
+                                      tableStyle="width|auto"
+                                      paginator="true"  
+                                      paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
+                                      rowsPerPageTemplate="2,5,9,12,15,20">
+
+                            <f:facet name="header">
+                                Lista de Estados
+                            </f:facet>
+                            <p:column headerText="ID"
+                                      sortBy="#{estado.id}"
+                                      filterBy="#{estado.id}">
+                                #{estado.id}
+                            </p:column>
+                            <p:column headerText="Nome"
+                                      sortBy="#{estado.nome}"
+                                      filterBy="#{estado.nome}">
+                                #{estado.nome}
+                            </p:column>
+                            <p:column headerText="Sigla"
+                                      sortBy="#{estado.sigla}"
+                                      filterBy="#{estado.sigla}">
+                                #{estado.sigla}
+                            </p:column>
+                            <p:column headerText="Alterar">
+                                <p:commandLink action="#{gerenciamentoEstado.altera(estado)}" 
+                                               update=":msn:gradeCadastro,:msn:digCadastrar"
+                                               oncomplete="PF('estados').show()">
+                                    <h:graphicImage  value="..\..\..\imagens\status\caderno.png" 
+                                                     height="30px" 
+                                                     width="30px" 
+                                                     id="imgAlterar" />
+                                </p:commandLink>                          
+                                <p:tooltip for="imgAlterar" 
+                                           value="Alterar" 
+                                           showEffect="fade" 
+                                           hideEffect="fade" />
+
+                            </p:column>
+                            <p:column headerText="Excluir">
+
+                                <p:commandLink action="#{gerenciamentoEstado.excluir(estado)}" 
+                                               update=":msn">
+                                    <h:graphicImage  value="..\..\..\imagens\status\inutilizada.png" 
+                                                     height="25px" 
+                                                     width="25px" 
+                                                     id="imgExcluir" />
+                                </p:commandLink>                          
+                                <p:tooltip for="imgExcluir" 
+                                           value="Excluir" 
+                                           showEffect="fade" 
+                                           hideEffect="fade" />
+
+
+                            </p:column>
+                        </p:dataTable>
+
+
+
+                        <p:dialog id="digCadastrar" 
+                                  header="Cadastro/Alteração de Estados"
+                                  widgetVar="estados">
+
+
+
+                            <h:panelGrid columns="2" 
+                                         cellpadding="5"
+                                         id="gradeCadastro">  
+
+
+                                <h:outputLabel value="Nome:" />  
+                                <p:inputText value="#{gerenciamentoEstado.estado.nome}"
+                                             id="txtNome"
+                                             maxlength="50" 
+                                             size="50"/>
+
+
+                                <h:outputLabel value="Sigla:" /> 
+                                <p:inputText  value="#{gerenciamentoEstado.estado.sigla}" 
+                                              maxlength="2"
+                                              id="txtSigla" />
+
+
+                                <f:facet name="footer">
+                                    <p:commandButton value="Cadastrar"
+                                                     update="@form"
+                                                     actionListener="#{gerenciamentoEstado.cadastrar(action)}"
+                                                     process="@this"/>
+
+
+                                </f:facet> 
+
+                            </h:panelGrid> 
+
+                        </p:dialog>
+
+                    </h:form>
+                </f:view>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>
+

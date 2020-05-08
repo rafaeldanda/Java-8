@@ -1,0 +1,79 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <h:head>
+        <title>Cadastro de PDA</title>
+    </h:head>
+    <h:body>
+
+        <p:dialog id="verPda"
+                  widgetVar="verPda"
+                  header="Pedido de ajuda"
+                  height="560"
+                  width="950">
+
+            <div align="center">
+                <p:inputTextarea style="height: 330px;width:900px"
+                                 value="#{gerenciamentoPdaCliente.batePapo}"
+                                 autoResize="false"
+                                 disabled="true"
+                                 id="txtArea"/>
+            </div><br/>
+            <p:commandLink onclick="dialogTransferencia.show();" 
+                           rendered="#{gerenciamentoPdaCliente.pda.status}"
+                           action="#{gerenciamentoPdaCliente.buscaPessoa()}"
+                           update=":msn:idPessoa">
+                <p:graphicImage value="#{msg.imgTransferencia}" 
+                                id="imgTransferir" 
+                                height="30px"/>
+            </p:commandLink>
+
+            <p:dialog id="dlgTransferencia" 
+                      header="Transferencia" 
+                      widgetVar="dialogTransferencia" 
+                      modal="false" 
+                      height="100"
+                      width="300"> 
+                <div align="center">
+                    <p:selectOneMenu id="idPessoa"  value="#{gerenciamentoPdaCliente.pessoa.id}">
+                        <f:selectItem itemLabel="#{msg.msgSelecioneOperador}" itemValue="" />
+                        <f:selectItems value="#{gerenciamentoPdaCliente.listaPessoaTransferencia}"
+                                       var="varListaPessoa"
+                                       itemLabel="#{varListaPessoa.nome}"
+                                       itemValue="#{varListaPessoa.id}" />
+                    </p:selectOneMenu>
+                    <p:commandButton value="Transferir" 
+                                     actionListener="#{gerenciamentoPdaCliente.transferencia()}"
+                                     update="msn:verPda,:msn:tabela"/>
+                </div>
+            </p:dialog>
+
+
+
+
+
+
+            <div align="center">
+                <p:inputTextarea style="height: 100px;width:800px" 
+                                 value="#{gerenciamentoPdaCliente.respostaPda.resposta}"
+                                 id="txtTexto"/><br/>
+                <p:commandButton value="Enviar"
+                                 id="btnEnviar"
+                                 actionListener="#{gerenciamentoPdaCliente.cadastraRespostaPda()}"
+                                 update=":msn"
+                                 rendered="#{gerenciamentoPdaCliente.pda.status}"/>
+
+            </div>
+
+
+
+        </p:dialog>
+
+    </h:body>
+</html>
+

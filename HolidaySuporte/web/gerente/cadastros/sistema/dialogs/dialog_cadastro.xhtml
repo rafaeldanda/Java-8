@@ -1,0 +1,45 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <h:head>
+        <title>Cadastro de Sistema</title>
+    </h:head>
+    <h:body>
+
+        <p:dialog id="digCadastrar" 
+                  header="Cadastro de Sistema"
+                  widgetVar="sistema">
+
+            <p:messages closable="true"
+                        showDetail="true"/>
+
+            <h:panelGrid columns="2" 
+                         cellpadding="5"
+                         id="gradeCadastro">  
+                <h:outputLabel value="Nome:" />  
+                <p:inputText value="#{gerenciamentoSistema.sistema.nome}"   
+                             required="false" 
+                             maxlength="50" 
+                             size="50"/>  
+
+
+                <h:outputText value="Ativo: " />  
+                <p:selectBooleanCheckbox value="#{gerenciamentoSistema.sistema.status}" />
+
+                <f:facet name="footer">
+                    <p:commandButton value="Cadastrar"
+                                     actionListener="#{gerenciamentoSistema.cadastrar()}"
+                                     update=":msn:gradeCadastro,:msn:tabela"/>  
+
+                </f:facet>  
+            </h:panelGrid>  
+        </p:dialog>
+
+    </h:body>
+</html>
+

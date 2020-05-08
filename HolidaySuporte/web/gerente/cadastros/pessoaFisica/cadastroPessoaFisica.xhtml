@@ -1,0 +1,234 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <h:head>
+        <title>Cadastro de Pessoa Fisica</title>
+    </h:head>
+    <h:body>
+        <ui:composition template="/menus/MenuGerencia.xhtml">
+            <ui:define name="conteudo">
+                <f:view>
+                    <h:form id="msn" style="font-size: 15px;"> 
+
+                        <p:growl  showDetail="true" /> 
+
+
+                        <p:commandButton id="btnNovo" 
+                                         value="Novo"
+                                         action="#{gerenciamentoPessoaFisica.novo()}"
+                                         oncomplete="PF('widPessoaFisica').show()" 
+                                         update=":msn:digCadastrar"/>  
+
+                        <p:dataTable  var="pessoa"
+                                      value="#{gerenciamentoPessoaFisica.listaPessoaFisica}" 
+                                      id="tabela"
+                                      style="text-align:  center;"
+                                      rows="9"
+                                      tableStyle="width|auto"
+                                      paginator="true"  
+                                      paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
+                                      rowsPerPageTemplate="9,12,15,20">
+
+                            <f:facet name="header">
+                                Lista de Pessoa Fisica
+                            </f:facet>
+                            <p:column headerText="ID:" 
+                                      filterBy="#{pessoa.id}" 
+                                      sortBy="#{pessoa.id}">
+                                #{pessoa.id}
+                            </p:column>
+
+                            <p:column headerText="Nome:" 
+                                      filterBy="#{pessoa.nome}" 
+                                      sortBy="#{pessoa.nome}">
+                                #{pessoa.nome}
+                            </p:column>
+
+                            <p:column headerText="CPF" 
+                                      filterBy="#{pessoa.cpf}" 
+                                      sortBy="#{pessoa.cpf}">
+                                #{pessoa.cpf}
+                            </p:column>
+
+                            <p:column headerText="Empresa">   
+                                #{pessoa.pessoaJuridica.nomeFantasia}
+                            </p:column>
+
+                            <p:column headerText="Alterar">
+                                <p:commandLink action="#{gerenciamentoPessoaFisica.altera(pessoa)}" 
+                                               update=":msn:digCadastrar"
+                                               oncomplete="PF('widPessoaFisica').show()">
+                                    <h:graphicImage  value="..\..\..\imagens\status\caderno.png" height="30px" 
+                                                     width="30px" 
+                                                     id="imgAlterar" />
+                                </p:commandLink>                          
+                                <p:tooltip for="imgAlterar" 
+                                           value="Alterar" 
+                                           showEffect="fade" hideEffect="fade" />
+                            </p:column>
+                            <p:column headerText="Excluir">
+                                <p:commandLink action="#{gerenciamentoPessoaFisica.excluir(pessoa)}" 
+                                               update="@form">
+                                    <h:graphicImage  value="..\..\..\imagens\status\inutilizada.png" 
+                                                     height="25px" 
+                                                     width="25px" 
+                                                     id="imgExcluir" />
+                                    <p:confirm header="Confirmação" message="Você tem Certeza?" icon="pi pi-exclamation-triangle" />
+                                </p:commandLink>  
+                                <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+                                    <p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes" icon="pi pi-check" />
+                                    <p:commandButton value="Não" type="button" styleClass="ui-confirmdialog-no" icon="pi pi-times" />
+                                </p:confirmDialog> 
+                                <p:tooltip for="imgExcluir" 
+                                           value="Excluir" 
+                                           showEffect="fade" 
+                                           hideEffect="fade" />
+                            </p:column>
+                        </p:dataTable>
+
+                        <p:dialog id="digCadastrar" 
+                                  header="Cadastro/Alteração de Pessoa Física"
+                                  widgetVar="widPessoaFisica"
+                                  width="1000"
+                                  height="330">
+
+                            <p:messages closable="true"
+                                        showDetail="true"/>
+
+                            <p:wizard widgetVar="wiz"  
+                                      flowListener="#{gerenciamentoPessoaFisica.wizard}">
+
+                                <p:tab id="personal" 
+                                       title="Pessoal">
+
+                                    <h:panelGrid columns="2" 
+                                                 cellpadding="5"
+                                                 id="gradeCadastro">  
+
+                                        <h:outputLabel value="Nome:" />  
+                                        <p:inputText value="#{gerenciamentoPessoaFisica.pessoaFisica.nome}" 
+                                                     maxlength="50" 
+                                                     size="50"/>  
+
+                                        <h:outputLabel value="CPF:" /> 
+                                        <p:inputMask  value="#{gerenciamentoPessoaFisica.pessoaFisica.cpf}" 
+                                                      maxlength="11" 
+                                                      mask="999.999.999-99"/>
+
+
+                                        <h:outputLabel value="E-mail:" /> 
+                                        <p:inputText  value="#{gerenciamentoPessoaFisica.pessoaFisica.email}"  
+                                                      required="false" 
+                                                      maxlength="50"
+                                                      size="50"/>
+
+
+                                        <h:outputLabel value="Perfil" /> 
+                                        <p:selectOneMenu value="#{gerenciamentoPessoaFisica.perfil.id}">
+                                            <f:selectItem itemLabel="Selecione o Perfil" 
+                                                          itemValue="" />
+                                            <f:selectItems value="#{gerenciamentoPerfil.listaPerfil}"
+                                                           var="varListaPerfil"
+                                                           itemLabel="#{varListaPerfil.nome}"
+                                                           itemValue="#{varListaPerfil.id}" />
+                                        </p:selectOneMenu>
+                                        <h:outputLabel value="Cidade:" /> 
+                                        <p:selectOneMenu value="#{gerenciamentoPessoaFisica.cidade.id}">
+                                            <f:selectItem itemLabel="Selecione o Cidade" 
+                                                          itemValue="" />
+                                            <f:selectItems value="#{gerenciamentoCidade.listaCidade}"
+                                                           var="var"
+                                                           itemLabel="#{var.nome}"
+                                                           itemValue="#{var.id}" />
+                                        </p:selectOneMenu>
+                                        <h:outputText value="Ativo: " />  
+                                        <p:selectBooleanCheckbox value="#{gerenciamentoPessoaFisica.pessoaFisica.status}" />
+
+                                    </h:panelGrid>  
+
+                                </p:tab>
+                                <p:tab id="emp" 
+                                       title="Empresa">
+
+                                    <h:panelGrid columns="2" 
+                                                 cellpadding="5">
+
+                                        <h:outputLabel value="Empresa:" />
+                                        <p:selectOneMenu value="#{gerenciamentoPessoaFisica.pessoaJuridica.id}">
+                                            <f:selectItem itemLabel="Selecione a Empresa" itemValue="" />
+                                            <f:selectItems value="#{gerenciamentoPessoaJuridica.listaPessoaJuridica}"
+                                                           var="varListaPerfil"
+                                                           itemLabel="#{varListaPerfil.nomeFantasia}"
+                                                           itemValue="#{varListaPerfil.id}" />
+                                        </p:selectOneMenu>
+
+                                    </h:panelGrid>
+
+                                </p:tab>
+                                <p:tab id="login" 
+                                       title="Login e Senha">
+
+                                    <h:panelGrid columns="2" 
+                                                 cellpadding="5">
+
+                                        <h:outputLabel value="Login:" /> 
+                                        <p:inputText  value="#{gerenciamentoPessoaFisica.pessoaFisica.login}"  
+                                                      required="false" 
+                                                      maxlength="10"/>
+
+
+                                        <h:outputLabel value="Senha:" for="inpSenha"/> 
+                                        <p:password id="inpSenha" 
+                                                    value="#{gerenciamentoPessoaFisica.pessoaFisica.senha}" 
+                                                    feedback="true"   
+                                                    promptLabel="Entre com a Senha" 
+                                                    weakLabel="Senha fraca"  
+                                                    goodLabel="Senha Boa" 
+                                                    strongLabel="Senha Otima" 
+                                                    maxlength="10"/>
+
+                                    </h:panelGrid>
+                                </p:tab>
+
+                                <p:tab id="conf" 
+                                       title="Confirmação">
+
+                                    <h:panelGrid columns="2" 
+                                                 cellpadding="5">
+                                        <h:outputLabel value="Nome:" />
+                                        <h:outputLabel value="#{gerenciamentoPessoaFisica.pessoaFisica.nome}" />
+                                        <h:outputLabel value="Empresa:" />
+                                        <h:outputLabel value="#{gerenciamentoPessoaFisica.buscaEmpresa(gerenciamentoPessoaFisica.pessoaJuridica).nomeFantasia}" /> 
+                                        <h:outputLabel value="CPF:" />
+                                        <h:outputLabel value="#{gerenciamentoPessoaFisica.pessoaFisica.cpf}" />
+                                        <h:outputLabel value="E-mail:" />
+                                        <h:outputLabel value="#{gerenciamentoPessoaFisica.pessoaFisica.email}" />
+                                        <h:outputLabel value="Perfil" />
+                                        <h:outputLabel value="#{gerenciamentoPessoaFisica.buscaPerfil(gerenciamentoPessoaFisica.perfil).nome}" />
+                                        <h:outputLabel value="Login:" />
+                                        <h:outputLabel value="#{gerenciamentoPessoaFisica.pessoaFisica.login}" />
+
+                                        <f:facet name="footer">
+                                            <p:commandButton value="Cadastrar"
+                                                             action="#{gerenciamentoPessoaFisica.cadastrar()}"
+                                                             update="@form"/>  
+
+                                        </f:facet>
+                                    </h:panelGrid>
+                                </p:tab>
+
+                            </p:wizard>
+                        </p:dialog>
+                    </h:form> 
+                </f:view>
+
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>
+

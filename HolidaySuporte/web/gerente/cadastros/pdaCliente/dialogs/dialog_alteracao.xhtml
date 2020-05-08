@@ -1,0 +1,42 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <h:head>
+        <title>Alteração de Sistema</title>
+    </h:head>
+    <h:body>
+
+
+        <p:dialog id="alteracao"
+                  widgetVar="alteracao"
+                  header="Alterar cadastro"
+                  minimizable="true">
+            <h:panelGrid columns="2" 
+                         cellpadding="5">  
+                <h:outputLabel value="Nome:" />  
+                <p:inputText value="#{gerenciamentoPerfil.perfilAlteracao.nome}"   
+                             required="false"
+                             maxlength="50" 
+                             size="50"/>  
+
+                <h:outputLabel value="Sigla:" /> 
+                <p:inputText  value="#{gerenciamentoPerfil.perfilAlteracao.status}"/>
+
+                <f:facet name="footer">  
+                    <p:commandButton value="Alterar"
+                                     actionListener="#{gerenciamentoEstado.cadastrar()}"
+                                     update=":msn"/>
+
+                </f:facet> 
+
+            </h:panelGrid>
+        </p:dialog>
+
+    </h:body>
+</html>
+

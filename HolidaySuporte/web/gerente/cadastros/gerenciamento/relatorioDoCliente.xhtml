@@ -1,0 +1,104 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <h:head>
+        <title>Gerenciamento do cliente</title>
+    </h:head>
+    <h:body>
+        <ui:composition template="/menus/MenuGerencia.xhtml">
+            <ui:define name="conteudo">
+                <f:view>
+                    <h:form id="msn" >
+                        <p:dataTable  var="pda"
+                                      value="#{relatorioDoCliente.listaPda}" 
+                                      id="tabela"
+                                      style="text-align:  center;"
+                                      rows="9"
+                                      tableStyle="width|auto"
+                                      paginator="true"  
+                                      paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
+                                      rowsPerPageTemplate="2,5,9,12,15,20">
+
+                            <f:facet name="header">
+                                Lista de PDAs
+                            </f:facet>
+                            <p:column headerText="ID"
+                                      sortBy="#{pda.id}"
+                                      filterBy="#{pda.id}">
+                                #{pda.id}
+                            </p:column>
+                            <p:column headerText="Empresa"
+                                      sortBy="#{pda.pessoa.pessoaJuridica.nomeFantasia}"
+                                      filterBy="#{pda.pessoa.pessoaJuridica.nomeFantasia}">
+                                #{pda.pessoa.pessoaJuridica.nomeFantasia}
+                            </p:column>
+                            <p:column headerText="Aberto por"
+                                      sortBy="#{pda.pessoa.nome}"
+                                      filterBy="#{pda.pessoa.nome}">
+                                #{pda.pessoa.nome}
+                            </p:column>
+                            <p:column headerText="Operador"
+                                      sortBy="#{pda.operador}"
+                                      filterBy="#{pda.operador}">
+                                #{pda.operador}
+                            </p:column>
+                            <p:column headerText="Ver">
+                                <p:commandLink oncomplete="PF('verPda').show()"
+                                               action="#{gerenciamentoPdaCliente.verPda(pda)}"
+                                               update=":msn:verPda">
+                                    <p:graphicImage value="../../../imagens/status/caderno.png" 
+                                                    id="imgVisualizar" 
+                                                    height="30px"
+                                                    width="30px"/>
+                                </p:commandLink>
+                                <p:tooltip for="imgVisualizar" 
+                                           value="Visualizar PDA" 
+                                           showEffect="fade" 
+                                           hideEffect="fade" />
+                            </p:column>
+                        </p:dataTable>
+
+
+                        <p:dialog id="verPda"
+                                  widgetVar="verPda"
+                                  header="Pedido de ajuda"
+                                  height="500"
+                                  width="950">
+
+
+                            <p:inputTextarea style="height: 430px;width:900px"
+                                             value="#{gerenciamentoPdaCliente.batePapo}"
+                                             autoResize="false"
+                                             disabled="true"
+                                             id="txtArea"/>
+                            <div align="center">
+                                <p:commandLink oncomplete="verPda.show()"
+                                               action="#{gerenciamentoPdaCliente.verPda(pda)}"
+                                               update=":msn:verPda">
+                                    <p:graphicImage value="../../../imagens/impressora.png" 
+                                                    id="imgVisualizar" 
+                                                    height="30px"
+                                                    width="30px"/>
+                                    <p:printer target="imgVisualizar"/>
+                                    <p:tooltip for="imgVisualizar" 
+                                               value="Imprimir" 
+                                               showEffect="fade" 
+                                               hideEffect="fade" />
+                                </p:commandLink>
+                            </div>
+
+
+                        </p:dialog>
+
+                    </h:form>
+                </f:view>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>
+

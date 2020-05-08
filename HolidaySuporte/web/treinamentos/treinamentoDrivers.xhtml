@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+    <head>
+        <title>Lista de Treinamento Drivers</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    </head>
+    <body>
+        <f:loadBundle basename="util.mensagens-pt-br" var="msg"/>
+        <ui:composition template="/menus/MenuGerencia.xhtml">
+            <ui:define name="conteudo">
+                <h:form id="msn" style="font-size: 15px;">
+                    <f:view>           
+
+
+                        <p:dataGrid var="aulas" 
+                                    value="#{listaTreinamentoDrivers.treinamentoOnline.listaVideoAula}" 
+                                    columns="3" 
+                                    layout="grid"
+                                    rows="12" 
+                                    paginator="true" 
+                                    id="cars"
+                                    paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                    rowsPerPageTemplate="6,12,16">
+
+                            <f:facet name="header">
+                                Lista de aulas
+                            </f:facet>
+                            <p:panel id="basic" header="#{aulas.nome}" style="margin-bottom:20px">
+                                <iframe  src="#{aulas.caminho}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe>
+                            </p:panel>
+
+                        </p:dataGrid>
+                    </f:view>
+                </h:form>
+            </ui:define>
+        </ui:composition>
+    </body>
+</html>

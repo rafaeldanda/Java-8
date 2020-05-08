@@ -1,0 +1,54 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+    
+    <h:head>
+        <title>Cadastro de PDA</title>
+    </h:head>
+    <h:body>
+         
+                    <p:dialog id="digCadastrar" 
+                              header="Cadastro de Pedido de ajuda"
+                              widgetVar="perfil">  
+                        <h:panelGrid columns="2" 
+                                     cellpadding="5">
+                        <h:outputLabel value="Sistema:"/>
+                        <p:selectOneMenu id="idCidade" value="#{gerenciamentoPdaCliente.sistema.id}">
+                            <f:selectItem itemLabel="Selecione o Sistema" itemValue=""/>
+                            <f:selectItems value="#{gerenciamentoPdaCliente.listaSistema}"
+                                           var="varListaEstado"
+                                           itemLabel="#{varListaEstado.nome}"
+                                           itemValue="#{varListaEstado.id}" />
+                                
+                                
+                        </p:selectOneMenu>
+                        <h:outputLabel value="Titulo:" />
+                        <p:inputText value="#{gerenciamentoPdaCliente.pda.titulo}"   
+                                     required="false" 
+                                     maxlength="50" 
+                                     size="40"/>
+
+                        <h:outputLabel value="Descrição:"/>                         
+                        <p:inputTextarea rows="10" 
+                                         cols="42" 
+                                         queryDelay="750"
+                                         minQueryLength="4"
+                                         value="#{gerenciamentoPdaCliente.pda.descricao}"/>
+                        
+                       
+                        <f:facet name="footer">
+                            <p:commandButton value="Cadastrar"
+                                             actionListener="#{gerenciamentoPdaCliente.cadastrar()}"
+                                             update=":msn"/>
+                            
+                        </f:facet>
+                    </h:panelGrid>  
+                   </p:dialog>
+                
+    </h:body>
+</html>
+

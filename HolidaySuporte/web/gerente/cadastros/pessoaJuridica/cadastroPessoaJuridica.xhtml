@@ -1,0 +1,211 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <h:head>
+        <title>Cadastro de Empresas</title>
+    </h:head>
+    <h:body>
+        <ui:composition template="/menus/MenuGerencia.xhtml">
+            <ui:define name="conteudo">
+                <f:view>
+                    <h:form id="msn" style="font-size: 15px;"> 
+
+                        <p:growl  showDetail="true" /> 
+                        <p:commandButton id="btnNovo" 
+                                         value="Novo"
+                                         action="#{gerenciamentoPessoaJuridica.novo()}"
+                                         oncomplete="PF('widPessoa').show()"
+                                         update=":msn:digCadastrar"/>  
+
+                        <p:dataTable  var="pessoa"
+                                      value="#{gerenciamentoPessoaJuridica.listaPessoaJuridica}" 
+                                      id="tabelaPessoa"
+                                      style="text-align:  center;"
+                                      rows="9"
+                                      tableStyle="width|auto"
+                                      paginator="true"  
+                                      paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
+                                      rowsPerPageTemplate="9,12,15,20">
+
+                            <f:facet name="header">
+                                Lista de Empresas
+                            </f:facet>
+                            <p:column headerText="ID:" 
+                                      filterBy="#{pessoa.id}" 
+                                      sortBy="#{pessoa.id}">
+                                #{pessoa.id}
+                            </p:column>
+                            <p:column headerText="CNPJ:" 
+                                      filterBy="#{pessoa.cnpj}" 
+                                      sortBy="#{pessoa.cnpj}">
+                                #{pessoa.cnpj}
+                            </p:column>
+                            <p:column headerText="Nome Fantasia:" 
+                                      filterBy="#{pessoa.nomeFantasia}" 
+                                      sortBy="#{pessoa.nomeFantasia}">
+                                #{pessoa.nomeFantasia}
+                            </p:column>
+
+
+                            <p:column headerText="Alterar">
+
+                                <p:commandLink action="#{gerenciamentoPessoaJuridica.altera(pessoa)}" 
+                                               update=":msn:digCadastrar"
+                                               oncomplete="PF('widPessoa').show()">
+                                    <h:graphicImage  value="..\..\..\imagens\status\caderno.png" height="30px" 
+                                                     width="30px" 
+                                                     id="imgAlterar" />
+                                </p:commandLink>                          
+                                <p:tooltip for="imgAlterar" 
+                                           value="Alterar" 
+                                           showEffect="fade" hideEffect="fade" />
+                            </p:column>
+                            <p:column headerText="Excluir">
+
+                                <p:commandLink action="#{gerenciamentoPessoaJuridica.excluir(pessoa)}" 
+                                               update=":msn">
+                                    <h:graphicImage  value="..\..\..\imagens\status\inutilizada.png" 
+                                                     height="25px" 
+                                                     width="25px" 
+                                                     id="imgExcluir" />
+                                </p:commandLink>                          
+                                <p:tooltip for="imgExcluir" 
+                                           value="Excluir" 
+                                           showEffect="fade" 
+                                           hideEffect="fade" />
+                            </p:column>
+                        </p:dataTable>
+
+
+                        <p:dialog id="digCadastrar" 
+                                  header="Cadastro/Alteração de Empresas"
+                                  widgetVar="widPessoa"
+                                  width="1000"
+                                  height="330">
+
+                            <p:messages closable="true"
+                                        showDetail="true"/>
+
+                            <p:wizard widgetVar="wiz"  
+
+                                      flowListener="#{gerenciamentoPessoaJuridica.wizard}">
+
+                                <p:tab id="personal" 
+                                       title="Pessoal">
+
+                                    <h:panelGrid columns="2" 
+                                                 cellpadding="5"
+                                                 id="gradeCadastro">  
+
+                                        <h:outputLabel value="Nome Fantasia:" />  
+                                        <p:inputText value="#{gerenciamentoPessoaJuridica.pessoaJuridica.nomeFantasia}"   
+                                                     required="false"
+                                                     maxlength="50" 
+                                                     size="40"/>  
+
+                                        <h:outputLabel value="CNPJ:" /> 
+                                        <p:inputMask  value="#{gerenciamentoPessoaJuridica.pessoaJuridica.cnpj}"
+                                                      mask="99.999.999/9999-99"
+                                                      maxlength="20"/>
+
+
+                                        <h:outputLabel value="E-mail:" /> 
+                                        <p:inputText  value="#{gerenciamentoPessoaJuridica.pessoaJuridica.email}"  
+                                                      required="false" 
+                                                      maxlength="50"
+                                                      size="50"/>
+
+
+                                        <h:outputLabel value="Cidade:" /> 
+                                        <p:selectOneMenu value="#{gerenciamentoPessoaJuridica.cidade.id}">
+                                            <f:selectItem itemLabel="Selecione a Cidade" 
+                                                          itemValue="" />
+                                            <f:selectItems  value="#{gerenciamentoCidade.listaCidade}"
+                                                            var="varListaCidade"
+                                                            itemLabel="#{varListaCidade.nome}"
+                                                            itemValue="#{varListaCidade.id}"/>
+
+                                        </p:selectOneMenu>
+                                        <h:outputText value="Ativo: " />  
+                                        <p:selectBooleanCheckbox value="#{gerenciamentoPessoaJuridica.pessoaJuridica.status}" />
+                                    </h:panelGrid>
+
+
+                                </p:tab>
+                                <p:tab id="sis" 
+                                       title="Sistemas">
+
+                                    <h:panelGrid columns="3" 
+                                                 cellpadding="10">
+                                        <h:outputLabel value="Sistema" /> 
+                                        <p:selectOneMenu value="#{gerenciamentoPessoaJuridica.sistema.id}">
+                                            <f:selectItem itemLabel="Selecione o Sistema" itemValue="" />
+                                            <f:selectItems  value="#{gerenciamentoSistema.listaSistema}"
+                                                            var="varListaCidade"
+                                                            itemLabel="#{varListaCidade.nome}"
+                                                            itemValue="#{varListaCidade.id}"/>
+
+                                        </p:selectOneMenu>
+                                        <p:commandButton value="Adicionar"
+                                                         action="#{gerenciamentoPessoaJuridica.addSistema()}"
+                                                         update=":msn:tabela" />
+
+                                    </h:panelGrid>
+                                    <p:dataTable   var="sistema"
+                                                   value="#{gerenciamentoPessoaJuridica.listaSistema}" 
+                                                   id="tabela"
+                                                   lazy="true"
+                                                   style="text-align:  center;">
+
+                                        <p:column headerText="Nome">
+                                            #{sistema.nome}
+                                        </p:column>
+                                        <p:column headerText="Remover">
+                                            <p:commandButton value="X"
+                                                             action="#{gerenciamentoPessoaJuridica.removeSistema(sistema)}"
+                                                             update=":msn:tabela" />
+                                        </p:column>
+
+
+                                    </p:dataTable>
+
+                                </p:tab>  
+                                <p:tab id="con" 
+                                       title="Conexão">
+                                    <h:panelGrid columns="2" 
+                                                 cellpadding="5">
+
+                                        <h:outputLabel value="Conexão:" />
+                                        <p:inputTextarea rows="3" 
+                                                         cols="50" 
+                                                         queryDelay="750" 
+                                                         minQueryLength="4" 
+                                                         value="#{gerenciamentoPessoaJuridica.pessoaJuridica.conexao}"/>
+                                        <f:facet name="footer">
+                                            <p:commandButton value="Cadastrar"
+                                                             action="#{gerenciamentoPessoaJuridica.cadastrar()}"
+                                                             update="@form"/>  
+
+                                        </f:facet>
+
+                                    </h:panelGrid>
+
+                                </p:tab>
+
+
+                            </p:wizard>
+                        </p:dialog>
+
+                    </h:form> 
+                </f:view>
+
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>
+

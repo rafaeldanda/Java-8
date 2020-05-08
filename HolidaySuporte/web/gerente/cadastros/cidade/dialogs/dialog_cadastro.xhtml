@@ -1,0 +1,56 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <h:head>
+        <title>Cadastro de Estado</title>
+    </h:head>
+    <h:body>
+
+        <p:dialog id="basicDialog" 
+                  header="Cadastro/Alteração de Cidades"
+                  widgetVar="cidades">  
+
+            <p:messages closable="true"
+                        showDetail="true"/>
+
+            <h:panelGrid columns="2" 
+                         cellpadding="5"
+                         id="gradeCadastro">  
+
+                <h:outputLabel for="nome" 
+                               value="Nome:" />  
+                <p:inputText value="#{gerenciamentoCidade.cidade.nome}"   
+                             id="nome" 
+                             maxlength="50" 
+                             size="50"/>  
+
+                <h:outputLabel for="idCidade"
+                               value="Estado:" /> 
+
+                <p:selectOneMenu id="idCidade" value="#{gerenciamentoCidade.cidade.estado.id}">
+                    <f:selectItem itemLabel="Selecione o Estado" itemValue="" />
+                    <f:selectItems value="#{gerenciamentoEstado.listaEstado}"
+                                   var="varListaEstado"
+                                   itemLabel="#{varListaEstado.nome}"
+                                   itemValue="#{varListaEstado.id}" />
+
+
+                </p:selectOneMenu>
+
+                <f:facet name="footer">  
+                    <p:commandButton id="btnCadastrar" 
+                                     value="Cadastrar"
+                                     actionListener="#{gerenciamentoCidade.cadastrar()}"
+                                     update=":msn:gradeCadastro,:msn:tabela"/>                              
+                </f:facet>  
+            </h:panelGrid>  
+        </p:dialog>
+
+    </h:body>
+</html>
+

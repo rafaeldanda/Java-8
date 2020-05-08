@@ -1,0 +1,133 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <h:head>
+        <title>Cadastro de PDA</title>
+    </h:head>
+    <h:body>
+
+        <ui:composition template="/menus/MenuGerencia.xhtml">
+            <ui:define name="conteudo">
+                <f:view>           
+                    <h:form id="msn" style="font-size: 15px;">
+
+                        <p:growl showDetail="true"/>
+
+                        <p:commandButton value="Novo"
+                                         actionListener="#{gerenciamentoPerfil.novo()}"
+                                         oncomplete="PF('widPda').show()"/> 
+
+                        <p:dataTable  var="perfil"
+                                      id="tabela"
+                                      style="text-align:  center;"
+                                      rows="9"
+                                      tableStyle="width|auto"
+                                      paginator="true"
+                                      paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
+                                      rowsPerPageTemplate="2,5,9,12,15,20">
+
+                            <f:facet name="header">
+                                Lista de PDA
+                            </f:facet>
+                            <p:column headerText="ID"
+                                      sortBy="#{perfil.id}"
+                                      filterBy="#{perfil.id}">
+                                #{perfil.id}
+                            </p:column>
+                            <p:column headerText="Nome"
+                                      sortBy="#{perfil.nome}"
+                                      filterBy="#{perfil.nome}">
+                                #{perfil.nome}
+                            </p:column>
+                            <p:column headerText="Status"
+                                      sortBy="#{perfil.status}"
+                                      filterBy="#{perfil.status}">
+                                #{perfil.status}
+                            </p:column>
+                            <p:column headerText="Visualizar">
+                                <p:commandButton value="Alterar"
+                                                 update=":msn"/>
+                            </p:column>
+                            <p:column headerText="Finalizar">                           
+                                <p:commandButton value="Excluir"
+                                                 update=":msn"/>
+
+
+                            </p:column>
+                        </p:dataTable>
+
+                        <p:dialog id="digCadastrar" 
+                                  header="Cadastro de Pedido de ajuda"
+                                  widgetVar="widPda">  
+                            <h:panelGrid columns="2" 
+                                         cellpadding="5">
+                                <h:outputLabel value="Sistema:"/>
+                                <p:selectOneMenu id="idCidade" value="#{gerenciamentoPdaCliente.sistema.id}">
+                                    <f:selectItem itemLabel="Selecione o Sistema" itemValue=""/>
+                                    <f:selectItems value="#{gerenciamentoPdaCliente.listaSistema}"
+                                                   var="varListaEstado"
+                                                   itemLabel="#{varListaEstado.nome}"
+                                                   itemValue="#{varListaEstado.id}" />
+
+
+                                </p:selectOneMenu>
+                                <h:outputLabel value="Titulo:" />
+                                <p:inputText value="#{gerenciamentoPdaCliente.pda.titulo}"   
+                                             required="false" 
+                                             maxlength="50" 
+                                             size="40"/>
+
+                                <h:outputLabel value="Descrição:"/>                         
+                                <p:inputTextarea rows="10" 
+                                                 cols="42" 
+                                                 queryDelay="750"
+                                                 minQueryLength="4"
+                                                 value="#{gerenciamentoPdaCliente.pda.descricao}"/>
+
+
+                                <f:facet name="footer">
+                                    <p:commandButton value="Cadastrar"
+                                                     actionListener="#{gerenciamentoPdaCliente.cadastrar()}"
+                                                     update=":msn"/>
+
+                                </f:facet>
+                            </h:panelGrid>  
+                        </p:dialog>
+
+                        <p:dialog id="alteracao"
+                                  widgetVar="alteracao"
+                                  header="Alterar cadastro"
+                                  minimizable="true">
+                            <h:panelGrid columns="2" 
+                                         cellpadding="5">  
+                                <h:outputLabel value="Nome:" />  
+                                <p:inputText value="#{gerenciamentoPerfil.perfilAlteracao.nome}"   
+                                             required="false"
+                                             maxlength="50" 
+                                             size="50"/>  
+
+                                <h:outputLabel value="Sigla:" /> 
+                                <p:inputText  value="#{gerenciamentoPerfil.perfilAlteracao.status}"/>
+
+                                <f:facet name="footer">  
+                                    <p:commandButton value="Alterar"
+                                                     actionListener="#{gerenciamentoEstado.cadastrar()}"
+                                                     update=":msn"/>
+
+                                </f:facet> 
+
+                            </h:panelGrid>
+                        </p:dialog>
+
+                    </h:form>
+                </f:view>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>
+
