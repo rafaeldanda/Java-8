@@ -44,6 +44,7 @@ public class ApplicationConfig extends Application {
         resources.add(service.TelefoneFacadeREST.class);
         resources.add(service.TreinamentoOnlineFacadeREST.class);
         resources.add(service.VideoAulaFacadeREST.class);
+        resources.add(service.cadastroEstado.class);
     }
     
 }
