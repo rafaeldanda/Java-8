@@ -7,6 +7,8 @@ package br.suporte.beans;
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.*;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -15,6 +17,7 @@ import javax.persistence.*;
 @Entity
 @Table(name = "tblSistema")
 @NamedQuery(name = "listaSistema", query = "select s from Sistema s")
+@XmlRootElement
 public class Sistema implements Serializable {
 
     @Id
@@ -51,6 +54,7 @@ public class Sistema implements Serializable {
         this.id = id;
     }
 
+    @XmlTransient
     public List<ItemTrabalho> getListaItemTrabalho() {
         return listaItemTrabalho;
     }
@@ -59,6 +63,7 @@ public class Sistema implements Serializable {
         this.listaItemTrabalho = listaItemTrabalho;
     }
 
+    @XmlTransient
     public List<PDA> getListaPda() {
         return listaPda;
     }
@@ -67,6 +72,7 @@ public class Sistema implements Serializable {
         this.listaPda = listaPda;
     }
 
+    @XmlTransient
     public List<PessoaJuridica> getListaPessoa() {
         return listaPessoa;
     }

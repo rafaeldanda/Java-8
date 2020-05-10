@@ -1,12 +1,16 @@
 package br.suporte.beans;
 
+import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.*;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 @Entity
 @Table(name="tblPessoaJuridica")
 @NamedQueries({@NamedQuery(name="listaPessoaJuridica",query="select p from PessoaJuridica p"),
                @NamedQuery(name="buscaPessoaRegiao",query="select p from PessoaJuridica p where p.cidade.estado.sigla = :nome")})
+@XmlRootElement
 public class PessoaJuridica extends Pessoa{
 
     
@@ -18,7 +22,8 @@ public class PessoaJuridica extends Pessoa{
     
     @Column
     private String ie;
-       
+    
+    
     @ManyToMany(mappedBy = "listaPessoa")
     private List<Sistema> listaSistema;
     
@@ -44,6 +49,7 @@ public class PessoaJuridica extends Pessoa{
         this.ie = ie;
     }
 
+    @XmlTransient
     public List<PessoaFisica> getListaPessoaFisica() {
         return listaPessoaFisica;
     }

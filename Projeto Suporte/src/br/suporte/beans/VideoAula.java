@@ -7,6 +7,8 @@ package br.suporte.beans;
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.*;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -15,6 +17,7 @@ import javax.persistence.*;
 @Entity
 @Table(name="tblVideoAula")
 @NamedQuery(name="listaAulas",query="select e from VideoAula e")
+@XmlRootElement
 public class VideoAula implements Serializable{
     
     @Id
@@ -68,6 +71,7 @@ public class VideoAula implements Serializable{
         this.id = id;
     }
 
+    @XmlTransient
     public List<TreinamentoOnline> getListaTreinamentoOnline() {
         return listaTreinamentoOnline;
     }

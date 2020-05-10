@@ -3,11 +3,14 @@ package br.suporte.beans;
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.*;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 
 @Entity
 @Table(name="tblEstado")
 @NamedQuery(name="listaEstados",query="select e from Estado e")
+@XmlRootElement
 public class Estado implements Serializable{
 
 	
@@ -35,6 +38,10 @@ public class Estado implements Serializable{
         
     }
 
+    public Estado(int i, String rio_grande_do_sul, String ss) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
     public Integer getId() {
             return id;
     }
@@ -59,6 +66,7 @@ public class Estado implements Serializable{
             this.sigla = sigla;
     }
 
+    @XmlTransient
     public List<Cidade> getCidade() {
         return cidade;
     }

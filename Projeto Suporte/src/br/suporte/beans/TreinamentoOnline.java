@@ -8,6 +8,8 @@ import java.io.Serializable;
 import java.util.Calendar;
 import java.util.List;
 import javax.persistence.*;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -16,6 +18,7 @@ import javax.persistence.*;
 @Entity
 @Table(name="tblTreinamentoOnline")
 @NamedQueries({@NamedQuery(name="listaTreinamentoOnline",query="select e from TreinamentoOnline e")})
+@XmlRootElement
 public class TreinamentoOnline implements Serializable{
     
     @Id
@@ -70,6 +73,7 @@ public class TreinamentoOnline implements Serializable{
         this.id = id;
     }
 
+    @XmlTransient
     public List<VideoAula> getListaVideoAula() {
         return listaVideoAula;
     }

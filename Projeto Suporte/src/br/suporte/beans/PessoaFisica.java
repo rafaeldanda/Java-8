@@ -2,12 +2,15 @@ package br.suporte.beans;
 
 import java.util.List;
 import javax.persistence.*;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 
 @Entity
 @Table(name="tblPessoaFisica")
 @NamedQueries({@NamedQuery(name="listaPessoas",query="select p from PessoaFisica p"),
                @NamedQuery(name="listaPessoasTipo",query="select p from PessoaFisica p where p.perfil.nome = 'Operador'")})
+@XmlRootElement
 public class PessoaFisica extends Pessoa{
 
    
@@ -38,6 +41,7 @@ public class PessoaFisica extends Pessoa{
         this.cpf = cpf;
     }
 
+    @XmlTransient
     public List<Emcominhamento> getListaEncaminhamento() {
         return listaEncaminhamento;
     }
@@ -46,6 +50,7 @@ public class PessoaFisica extends Pessoa{
         this.listaEncaminhamento = listaEncaminhamento;
     }
 
+    @XmlTransient
     public List<PDA> getListaPda() {
         return listaPda;
     }
@@ -62,6 +67,7 @@ public class PessoaFisica extends Pessoa{
         this.pessoaJuridica = pessoaJuridica;
     }
 
+    @XmlTransient
     public List<RespostaPda> getListaRespostaPda() {
         return listaRespostaPda;
     }

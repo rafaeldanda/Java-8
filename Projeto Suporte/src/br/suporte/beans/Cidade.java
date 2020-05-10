@@ -3,11 +3,14 @@ package br.suporte.beans;
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.*;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 @Entity
 @Table(name="tblCidade")
 @NamedQueries({@NamedQuery(name="listaCidades",query="select c from Cidade c"),
                @NamedQuery(name="buscaCidade",query="select c from Cidade c where c.id = :id")})
+@XmlRootElement
 public class Cidade implements Serializable{
 
     private static final long serialVersionUID = 1184153765907633024L;
@@ -60,6 +63,7 @@ public class Cidade implements Serializable{
         this.nome = nome;
     }
 
+    @XmlTransient
     public List<Pessoa> getPessoa() {
         return pessoa;
     }

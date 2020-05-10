@@ -4,10 +4,13 @@ import java.io.Serializable;
 import java.util.Calendar;
 import java.util.List;
 import javax.persistence.*;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 @Entity
 @Inheritance(strategy= InheritanceType.JOINED)
 @PrimaryKeyJoinColumn(name="id_pessoa")
+@XmlRootElement
 public class Pessoa implements Serializable{
 
     @Id
@@ -98,6 +101,7 @@ public class Pessoa implements Serializable{
         this.id = id;
     }
 
+    @XmlTransient
     public List<Sistema> getListaSistema() {
         return listaSistema;
     }
@@ -106,6 +110,7 @@ public class Pessoa implements Serializable{
         this.listaSistema = listaSistema;
     }
 
+    @XmlTransient
     public List<Telefone> getListaTelefone() {
         return listaTelefone;
     }

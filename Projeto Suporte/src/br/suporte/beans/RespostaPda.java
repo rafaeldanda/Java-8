@@ -5,6 +5,7 @@ import java.beans.Transient;
 import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.*;
+import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
@@ -13,6 +14,7 @@ import javax.persistence.*;
 @Table(name="tblRespostaPda")
 @Entity
 @NamedQuery(name="listaRespostaPda",query="select r from RespostaPda r where r.pda.id = :id")
+@XmlRootElement
 public class RespostaPda implements Serializable{
 
     @Id

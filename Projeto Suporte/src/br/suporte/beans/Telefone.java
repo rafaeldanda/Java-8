@@ -2,9 +2,11 @@ package br.suporte.beans;
 
 import java.io.Serializable;
 import javax.persistence.*;
+import javax.xml.bind.annotation.XmlRootElement;
 
 @Entity
 @Table(name="tblTelefone")
+@XmlRootElement
 public class Telefone implements Serializable{
 
     @Id

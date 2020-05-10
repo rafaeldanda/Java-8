@@ -4,9 +4,11 @@ import java.io.Serializable;
 import java.util.Calendar;
 import java.util.List;
 import javax.persistence.*;
+import javax.xml.bind.annotation.XmlRootElement;
 
 @Entity
 @Table(name="tblEmcominhamento")
+@XmlRootElement
 public class Emcominhamento implements Serializable{
 
     @Id

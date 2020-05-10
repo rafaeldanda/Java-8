@@ -2,10 +2,12 @@ package br.suporte.beans;
 
 import java.io.Serializable;
 import javax.persistence.*;
+import javax.xml.bind.annotation.XmlRootElement;
 
 @Entity
 @Table(name="tblPerfil")
 @NamedQuery(name="listaPerfil",query="select p from Perfil p")
+@XmlRootElement
 public class Perfil implements Serializable{
 
     @Id

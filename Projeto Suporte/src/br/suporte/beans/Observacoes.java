@@ -7,6 +7,7 @@ package br.suporte.beans;
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.*;
+import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
@@ -14,6 +15,7 @@ import javax.persistence.*;
  */
 @Entity
 @Table(name="tblprOjetosuporte")
+@XmlRootElement
 public class Observacoes implements Serializable{
     
     @Id

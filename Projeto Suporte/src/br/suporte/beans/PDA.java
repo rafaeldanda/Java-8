@@ -5,12 +5,15 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.*;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 @Entity
 @Table(name="tblPda")
 @NamedQueries({@NamedQuery(name="listaPDA",query="select p from PDA p"),
                @NamedQuery(name="listaPDA2",query="select p from PDA p where p.pessoa.id = :id order by p.id"),
                @NamedQuery(name="listaMeuPDA",query="select p from PDA p where p.dono.id = :id order by p.id"),
                @NamedQuery(name="listaPDAInicio",query="select p from PDA p where p.status = true and p.dono IS null order by p.id")})
+@XmlRootElement
 public class PDA implements Serializable{
 
     @Id
@@ -103,6 +106,7 @@ public class PDA implements Serializable{
         this.id = id;
     }
 
+    @XmlTransient
     public List<ItemTrabalho> getListaItemTrabalho() {
         return listaItemTrabalho;
     }
@@ -228,6 +232,7 @@ public class PDA implements Serializable{
         this.msnOperador = msnOperador;
     }
 
+    @XmlTransient
     public List<RespostaPda> getListaRespostaPda() {
         return listaRespostaPda;
     }
