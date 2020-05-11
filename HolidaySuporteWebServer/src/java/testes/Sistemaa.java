@@ -5,17 +5,6 @@
  */
 package testes;
 
-import br.suporte.beans.ItemTrabalho;
-import br.suporte.beans.PDA;
-import br.suporte.beans.PessoaJuridica;
-import java.util.List;
-import java.util.logging.Logger;
-import javax.persistence.Column;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-import javax.persistence.OneToMany;
-
 /**
  *
  * @author rafael

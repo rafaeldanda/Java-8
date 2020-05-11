@@ -5,7 +5,6 @@
  */
 package testes;
 
-import javax.persistence.Column;
 
 /**
  *

@@ -5,18 +5,7 @@
  */
 package testes;
 
-import br.suporte.beans.Cidade;
-import br.suporte.beans.Perfil;
-import br.suporte.beans.Sistema;
-import br.suporte.beans.Telefone;
-import java.util.Calendar;
-import java.util.List;
-import javax.persistence.Column;
-import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+
 
 /**
  *
@@ -25,6 +14,7 @@ import javax.persistence.TemporalType;
 public class PessoaFisicaa {
     private Integer id;
     private String nome;
+    private String cpf;
     private String email;
     private String senha;
     private Boolean status;
@@ -35,9 +25,10 @@ public class PessoaFisicaa {
     public PessoaFisicaa() {
     }
 
-    public PessoaFisicaa(Integer id, String nome, String email, String senha, Boolean status, Cidadee cidade, Perfill perfil, PessoaJuridicaa pessoaJuridica) {
+    public PessoaFisicaa(Integer id, String nome, String cpf, String email, String senha, Boolean status, Cidadee cidade, Perfill perfil, PessoaJuridicaa pessoaJuridica) {
         this.id = id;
         this.nome = nome;
+        this.cpf = cpf;
         this.email = email;
         this.senha = senha;
         this.status = status;
@@ -45,6 +36,8 @@ public class PessoaFisicaa {
         this.perfil = perfil;
         this.pessoaJuridica = pessoaJuridica;
     }
+
+    
 
     
 
@@ -110,6 +103,14 @@ public class PessoaFisicaa {
 
     public void setPessoaJuridica(PessoaJuridicaa pessoaJuridica) {
         this.pessoaJuridica = pessoaJuridica;
+    }
+
+    public String getCpf() {
+        return cpf;
+    }
+
+    public void setCpf(String cpf) {
+        this.cpf = cpf;
     }
 
    

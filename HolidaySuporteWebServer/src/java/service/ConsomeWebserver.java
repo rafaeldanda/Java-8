@@ -21,7 +21,7 @@ public class ConsomeWebserver {
         {"id":1,"nome":"Rio grande do sul","sigla":"RS","listaCidade":[{"id":1,"nome":"Porto alegre"},{"id":2,"nome":"Pelotas"},{"id":3,"nome":"Canoas"}]}
         
         pessoaFisica
-        {"id":1,"nome":"Rafael Danda","email":"rafaeldanda@gmail.com","senha":"1234","status":true,"cidade":{"id":1,"nome":"Porto Alegre"},"perfil":{"id":1,"nome":"Cliente","status":true},"pessoaJuridica":{"id":1}}
+        {"id":1,"nome":"Rafael Danda","cpf":"010.290.540-10",email":"rafaeldanda@gmail.com","senha":"1234","status":true,"cidade":{"id":1,"nome":"Porto Alegre"},"perfil":{"id":1,"nome":"Cliente","status":true},"pessoaJuridica":{"id":1}}
         
         
         

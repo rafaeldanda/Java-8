@@ -31,6 +31,7 @@ public class ApplicationConfig extends Application {
     private void addRestResourceClasses(Set<Class<?>> resources) {
         resources.add(service.HolidayCadastroEstadoResource.class);
         resources.add(service.HolidayCadastrtoPessoaFisica.class);
+        resources.add(service.HolidayPda.class);
         resources.add(service.PdaErroSistema.class);
     }
     

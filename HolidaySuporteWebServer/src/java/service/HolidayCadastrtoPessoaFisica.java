@@ -115,8 +115,10 @@ public class HolidayCadastrtoPessoaFisica {
         
         this.pessoa.setId(pessoaa.getId());
         this.pessoa.setNome(pessoaa.getNome());
+        this.pessoa.setCpf(pessoaa.getCpf());
         this.pessoa.setEmail(pessoaa.getEmail());
         this.pessoa.setSenha(pessoaa.getSenha());
+        this.pessoa.setStatus(pessoaa.getStatus());
         this.pessoa.setCidade(cidade);
         this.pessoa.setPerfil(perfil);
         this.pessoa.setPessoaJuridica(pessoaJuridica);
