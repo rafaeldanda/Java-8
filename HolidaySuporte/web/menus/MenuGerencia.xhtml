@@ -1,0 +1,75 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>Holiday Suporte</title>
+    </h:head>
+    <h:body>
+
+        <f:loadBundle basename="util.mensagens-pt-br" var="msg"/>
+        <div id="menu" style="font-size: 15px;">
+            <h:form >
+                <p:menubar id="menu">
+                    <p:submenu label="Início" rendered="#{login.inicio}">
+                        <p:menuitem value="Início" url="#{request.contextPath}\\inicio.xhtml" rendered="#{login.inicio}"/>
+                        <p:menuitem value="Meus PDAs" url="#{request.contextPath}\\gerente\\cadastros\\meuPda\\meuPda.xhtml" rendered="#{login.meusPdas}"/>
+                        <p:menuitem value="Sair" url="#{request.contextPath}\\sair.xhtml" rendered="true"/>
+                    </p:submenu>
+                    <p:submenu label="Cadastros" icon="ui-icon-document" rendered="#{login.cadastros}">
+                        <p:menuitem value="Estado" url="#{request.contextPath}\\gerente\\cadastros\\estado\\cadastroEstado.xhtml" rendered="#{login.estado}"/>  
+                        <p:menuitem value="Cidade" url="#{request.contextPath}\\gerente\\cadastros\\cidade\\cadastroCidade.xhtml" rendered="#{login.cidade}"/>
+                        <p:menuitem value="Perfil" url="#{request.contextPath}\\gerente\\cadastros\\perfil\\cadastroPerfil.xhtml" rendered="#{login.perfil}"/>
+                        <p:menuitem value="Novo PDA" url="#{request.contextPath}\\cliente\\pda\\cadastroPda.xhtml" rendered="#{login.pdaCliente}"/> 
+                        <p:menuitem value="Treinamento" url="#{request.contextPath}\\gerente\\cadastros\\treinamento\\cadastroTreinamento.xhtml" rendered="#{login.treinamento}"/>
+                        <p:menuitem value="Aulas" url="#{request.contextPath}\\gerente\\cadastros\\treinamento\\cadastroAulas.xhtml" rendered="#{login.aulas}"/>
+                        <p:menuitem value="Sistema" url="#{request.contextPath}\\gerente\\cadastros\\sistema\\cadastroSistema.xhtml" rendered="#{login.sistema}"/>
+                        <p:menuitem value="Telefones" url="#{request.contextPath}\\gerente\\cadastros\\telefone\\cadastroTelefone.xhtml" rendered="#{login.telefone}"/>
+                        <p:menuitem value="PDA" url="#{request.contextPath}\\cadastros\\pda\\cadastroPda.xhtml" rendered="#{login.pda}"/>
+                        <p:menuitem value="Sair" url="#{request.contextPath}\\sair.xhtml" rendered="true" />
+                        <p:submenu label="Pessoa" icon="ui-icon-pencil" rendered="#{login.pessoas}">  
+                            <p:menuitem value="Pessoa Física" url="#{request.contextPath}\\gerente\\cadastros\\pessoaFisica\\cadastroPessoaFisica.xhtml" />  
+                            <p:menuitem value="Empresas" url="#{request.contextPath}\\gerente\\cadastros\\pessoaJuridica\\cadastroPessoaJuridica.xhtml" />  
+
+                        </p:submenu>  
+
+                    </p:submenu>  
+
+                    <p:submenu label="Relatórios" icon="ui-icon-pencil" rendered="#{login.relatorios}">  
+                        <p:menuitem value="Clientes por Cidade" url="#" icon="ui-icon-arrowreturnthick-1-w"  action="#{gerenciamentoRelatorio.relatorioEstado(event)}"/>  
+                    </p:submenu>
+
+                    <p:submenu label="Gráficos" rendered="#{login.graficos}">  
+                        <p:menuitem value="Cliente por Sistema" url="#{request.contextPath}\\gerente\\cadastros\\gerenciamento\\graficoUsuarioSistema.xhtml" icon="ui-icon-arrowreturnthick-1-w" />
+                        <p:menuitem value="PDA por Sistema" url="#{request.contextPath}\\gerente\\cadastros\\gerenciamento\\graficoPda.xhtml" icon="ui-icon-arrowreturnthick-1-w" />
+                        <p:menuitem value="Clientes por região" url="#{request.contextPath}\\gerente\\cadastros\\gerenciamento\\graficoClientePorRegiao.xhtml" icon="ui-icon-arrowreturnthick-1-w" />
+                        <p:menuitem value="Acompanhamento do cliente" url="#{request.contextPath}\\gerente\\cadastros\\gerenciamento\\relatorioDoCliente.xhtml" />
+
+                    </p:submenu>
+                    <p:submenu label="Treinamentos">  
+                        <p:menuitem value="Treinamento Libras" url="#{request.contextPath}\\treinamentos\\treinamentoLibras.xhtml" icon="cloud"  action="#{gerenciamentoRelatorio.relatorioEstado(event)}" rendered="#{login.treinamentoLibras}"/>
+                        <p:menuitem value="Treinamento Suporte" url="#{request.contextPath}\\treinamentos\\treinamentoSuporte.xhtml" icon="cloud"  action="#{gerenciamentoRelatorio.relatorioEstado(event)}" rendered="#{login.treinamentoSuporte}"/>
+                        <p:menuitem value="Treinamento Drivers" url="#{request.contextPath}\\treinamentos\\treinamentoDrivers.xhtml" icon="cloud"  action="#{gerenciamentoRelatorio.relatorioEstado(event)}" rendered="#{login.treinamentoDrivers}"/>
+                    </p:submenu>
+
+
+                </p:menubar>
+            </h:form>
+        </div>
+        <ui:insert name="conteudo">
+
+        </ui:insert>
+        <ui:insert name="rodape">
+            <div align="center">
+
+
+            </div>
+        </ui:insert>
+
+
+    </h:body>
+</html>
+

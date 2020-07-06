@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.1" xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
+  <persistence-unit name="Projeto_SuportePU" transaction-type="RESOURCE_LOCAL">
+    <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
+    <class>br.suporte.beans.Cidade</class>
+    <class>br.suporte.beans.Emcominhamento</class>
+    <class>br.suporte.beans.Estado</class>
+    <class>br.suporte.beans.ItemTrabalho</class>
+    <class>br.suporte.beans.Observacoes</class>
+    <class>br.suporte.beans.PDA</class>
+    <class>br.suporte.beans.Perfil</class>
+    <class>br.suporte.beans.Pessoa</class>
+    <class>br.suporte.beans.PessoaFisica</class>
+    <class>br.suporte.beans.PessoaJuridica</class>
+    <class>br.suporte.beans.RespostaPda</class>
+    <class>br.suporte.beans.Sistema</class>
+    <class>br.suporte.beans.Telefone</class>
+    <class>br.suporte.beans.TreinamentoOnline</class>
+    <class>br.suporte.beans.VideoAula</class>
+    <properties>
+      <property name="javax.persistence.jdbc.url" value="jdbc:postgresql://localhost:5432/postgres"/>
+      <property name="javax.persistence.jdbc.user" value="postgres"/>
+      <property name="javax.persistence.jdbc.driver" value="org.postgresql.Driver"/>
+      <property name="javax.persistence.jdbc.password" value="ihu287f2"/>
+    </properties>
+  </persistence-unit>
+</persistence>

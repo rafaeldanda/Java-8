@@ -1,0 +1,117 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <h:head>
+        <title>Pagina Inicial</title>
+    </h:head>
+    <h:body>
+
+        <f:loadBundle basename="util.mensagens-pt-br" var="msg"/>
+        <ui:composition template="menus/MenuGerencia.xhtml">
+            <ui:define name="conteudo">
+                <f:view>           
+
+                    <h:form id="msn" >
+
+
+
+                        <p:growl showDetail="true"/>
+
+
+                        <p:dataTable  var="pda"
+                                      value="#{gerenciamentoPdaCliente.listaPdaInicio}"
+                                      id="tabela"
+                                      style="text-align:  center;"
+                                      rows="9"
+                                      widgetVar="tav"
+                                      tableStyle="width|auto"
+                                      paginator="true"  
+                                      paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
+                                      rowsPerPageTemplate="2,5,9,12,15,20">
+
+                            <f:facet name="header">
+                                Lista de PDA
+                            </f:facet>
+                            <p:column headerText="ID"
+                                      sortBy="#{pda.id}"
+                                      filterBy="#{pda.id}">
+                                #{pda.id}
+                            </p:column>
+                            <p:column headerText="Título:"
+                                      sortBy="#{pda.titulo}"
+                                      filterBy="#{pda.titulo}">
+                                #{pda.titulo}
+                            </p:column>
+                            <p:column headerText="Empresa:"
+                                      sortBy="#{pda.pessoa.pessoaJuridica.nome}"
+                                      filterBy="#{pda.pessoa.pessoaJuridica.nome}">
+                                #{pda.pessoa.pessoaJuridica.nomeFantasia}
+                            </p:column>
+                            <p:column headerText="Status">
+                                <p:graphicImage value="#{pda.ativoInicio}" 
+                                                id="imgStatus"/>
+                                <p:tooltip for="imgStatus" 
+                                           value="#{pda.msnAtivo}"
+                                           showEffect="fade" 
+                                           hideEffect="fade" />
+                            </p:column>
+                            <p:column headerText="Ver">
+                                <p:commandLink oncomplete="verPda.show()"
+                                               actionListener="#{gerenciamentoPdaCliente.verPdaInicio(pda)}"
+                                               update=":msn:verPda">
+                                    <p:graphicImage value="#{pda.ver}" 
+                                                    id="imgVisualizar" />
+                                </p:commandLink>
+                                <p:tooltip for="imgVisualizar" 
+                                           value="#{msg['imgInicio']}" 
+                                           showEffect="fade" 
+                                           hideEffect="fade" />
+                            </p:column>
+
+                        </p:dataTable>
+                        <p:poll interval="10"   
+                                listener="#{gerenciamentoPdaCliente.listaInicio()}" 
+                                update=":msn:tabela" />
+
+
+                        <!--<ui:include src="cliente\pda\dialogs\dialog_verPda.xhtml" />-->
+                        <p:dialog id="verPda"
+                                  widgetVar="verPda"
+                                  header="Pedido de ajuda"
+                                  height="530"
+                                  width="950">
+
+                            <div align="center">
+                                <p:inputTextarea style="height: 330px;width:900px"
+                                                 value="#{gerenciamentoPdaCliente.batePapo}"
+                                                 autoResize="false"
+                                                 disabled="true"
+                                                 id="txtArea"/>
+                            </div><br/>
+                            <div align="center">
+                                <p:inputTextarea style="height: 100px;width:800px" 
+                                                 value="#{gerenciamentoPdaCliente.respostaPda.resposta}"
+                                                 id="txtTexto"/>
+                                <p:commandButton value="Enviar"
+                                                 id="btnEnviar"
+                                                 actionListener="#{gerenciamentoPdaCliente.cadastraRespostaPda()}"
+                                                 update=":msn"
+                                                 rendered="#{gerenciamentoPdaCliente.pda.status}"/>
+                            </div>
+
+
+
+                        </p:dialog>
+
+                    </h:form>
+                </f:view>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>
+

@@ -1,0 +1,115 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <h:head>
+        <title>Cadastro de Perfil</title>
+    </h:head>
+    <h:body>
+
+        <ui:composition template="/menus/MenuGerencia.xhtml">
+            <ui:define name="conteudo">
+                <f:view>           
+
+                    <h:form id="msn" style="font-size: 15px;">
+
+                        <p:growl showDetail="true"/>
+
+                        <p:commandButton id="btnNovo" 
+                                         value="Novo"
+                                         actionListener="#{gerenciamentoPerfil.novo()}"
+                                         oncomplete="PF('perfil').show()"
+                                         update=":msn:digCadastrar"/> 
+
+                        <p:dataTable  var="perfil"
+                                      value="#{gerenciamentoPerfil.listaPerfil}" 
+                                      id="tabela"
+                                      style="text-align:  center;"
+                                      rows="9"
+                                      tableStyle="width|auto"
+                                      paginator="true"  
+                                      paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
+                                      rowsPerPageTemplate="2,5,9,12,15,20">
+
+                            <f:facet name="header">
+                                Lista de Perfil
+                            </f:facet>
+                            <p:column headerText="ID"
+                                      sortBy="#{perfil.id}"
+                                      filterBy="#{perfil.id}">
+                                #{perfil.id}
+                            </p:column>
+                            <p:column headerText="Nome"
+                                      sortBy="#{perfil.nome}"
+                                      filterBy="#{perfil.nome}">
+                                #{perfil.nome}
+                            </p:column>
+                            <p:column headerText="Status"
+                                      sortBy="#{perfil.status}"
+                                      filterBy="#{perfil.status}">
+                                <p:selectBooleanCheckbox value="#{perfil.status}" disabled="true"/>
+                            </p:column>
+                            <p:column headerText="Alterar">
+
+                                <p:commandLink actionListener="#{gerenciamentoPerfil.altera(perfil)}" 
+                                               update=":msn:digCadastrar"
+                                               oncomplete="PF('perfil').show()">
+                                    <h:graphicImage  value="..\..\..\imagens\status\caderno.png" height="30px" 
+                                                     width="30px" 
+                                                     id="imgAlterar" />
+                                </p:commandLink>                          
+                                <p:tooltip for="imgAlterar" 
+                                           value="Alterar" 
+                                           showEffect="fade" hideEffect="fade" />
+                            </p:column>
+                            <p:column headerText="Excluir">                                
+                                <p:commandLink actionListener="#{gerenciamentoPerfil.excluir(perfil)}" 
+                                               update=":msn">
+                                    <h:graphicImage  value="..\..\..\imagens\status\inutilizada.png" 
+                                                     height="25px" 
+                                                     width="25px" 
+                                                     id="imgExcluir" />
+                                </p:commandLink>                          
+                                <p:tooltip for="imgExcluir" 
+                                           value="Excluir" 
+                                           showEffect="fade" 
+                                           hideEffect="fade" />
+
+
+                            </p:column>
+                        </p:dataTable>
+
+                        <p:dialog id="digCadastrar" 
+                                  header="Cadastro/Alteração de Perfil"
+                                  widgetVar="perfil">  
+                            <h:panelGrid columns="2" 
+                                         cellpadding="5">  
+                                <h:outputLabel value="Nome:" />  
+                                <p:inputText value="#{gerenciamentoPerfil.perfil.nome}"   
+                                             required="false" 
+                                             maxlength="50" 
+                                             size="40"/>  
+
+                                <h:outputLabel value="Status:" /> 
+                                <p:selectBooleanCheckbox value="#{gerenciamentoPerfil.perfil.status}" />
+
+                                <f:facet name="footer">
+                                    <p:commandButton value="Cadastrar"
+                                                     actionListener="#{gerenciamentoPerfil.cadastrar()}"
+                                                     update=":msn"/>  
+
+                                </f:facet>  
+                            </h:panelGrid>  
+                        </p:dialog>
+
+                    </h:form>
+                </f:view>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>
+

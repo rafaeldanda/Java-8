@@ -1,0 +1,110 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <h:head>
+        <title>Cadastro de Telefones</title>
+    </h:head>
+    <h:body>
+
+        <ui:composition template="/menus/MenuGerencia.xhtml">
+            <ui:define name="conteudo">
+                <f:view>           
+
+                    <h:form id="msn" >
+
+                        <p:growl showDetail="true"/>
+
+                        <p:dataTable  var="perfil"
+                                      value="#{gerenciamentoPerfil.listaPerfil}" 
+                                      id="tabela"
+                                      style="text-align:  center;"
+                                      rows="9"
+                                      tableStyle="width|auto"
+                                      paginator="true"  
+                                      paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
+                                      rowsPerPageTemplate="2,5,9,12,15,20">
+
+                            <f:facet name="header">
+                                Lista de Telefones
+                            </f:facet>
+                            <p:column headerText="ID"
+                                      sortBy="#{perfil.id}"
+                                      filterBy="#{perfil.id}">
+                                #{perfil.id}
+                            </p:column>
+                            <p:column headerText="Nome"
+                                      sortBy="#{perfil.nome}"
+                                      filterBy="#{perfil.nome}">
+                                #{perfil.nome}
+                            </p:column>
+                            <p:column headerText="Telefone"
+                                      sortBy="#{perfil.nome}"
+                                      filterBy="#{perfil.nome}">
+                                #{perfil.nome}
+                            </p:column>
+                            <p:column headerText="Celular"
+                                      sortBy="#{perfil.nome}"
+                                      filterBy="#{perfil.nome}">
+                                #{perfil.nome}
+                            </p:column>
+                            <p:column headerText="Publico"
+                                      sortBy="#{perfil.status}">
+                                #{perfil.status}
+                            </p:column>
+                            <p:column headerText="Alterar">
+                                <p:commandButton id="btnAlterar" 
+                                                 value="Alterar"
+                                                 actionListener="#{gerenciamentoPerfil.altera(perfil)}"
+                                                 oncomplete="PF('alteracao').show()"
+                                                 update=":msn:alteracao"/>
+                            </p:column>
+                            <p:column headerText="Excluir">
+
+                                <p:commandButton value="Excluir"
+                                                 actionListener="#{gerenciamentoPerfil.excluir(perfil)}"
+                                                 update=":msn"/>
+
+
+                            </p:column>
+                        </p:dataTable>
+
+
+                        <p:dialog id="alteracao"
+                                  widgetVar="alteracao"
+                                  header="Alterar cadastro"
+                                  minimizable="true">
+                            <h:panelGrid columns="2" 
+                                         cellpadding="5">  
+                                <h:outputLabel value="Nome:" />  
+                                <p:inputText value="#{gerenciamentoPerfil.perfilAlteracao.nome}"   
+                                             required="false"
+                                             maxlength="50" 
+                                             size="50"/>  
+
+                                <h:outputLabel value="Sigla:" /> 
+                                <p:inputText  value="#{gerenciamentoPerfil.perfilAlteracao.status}"/>
+
+                                <f:facet name="footer">  
+                                    <p:commandButton value="Alterar"
+                                                     actionListener="#{gerenciamentoEstado.cadastrar()}"
+                                                     update=":msn"/>
+
+                                </f:facet> 
+
+                            </h:panelGrid>
+                        </p:dialog>
+
+
+
+                    </h:form>
+                </f:view>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>
+

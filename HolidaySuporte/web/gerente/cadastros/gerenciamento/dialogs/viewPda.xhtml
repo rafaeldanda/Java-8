@@ -1,0 +1,47 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <h:head>
+        <title>Cadastro de PDA</title>
+    </h:head>
+    <h:body>
+
+        <p:dialog id="verPda"
+                  widgetVar="verPda"
+                  header="Pedido de ajuda"
+                  height="500"
+                  width="950">
+
+
+            <p:inputTextarea style="height: 430px;width:900px"
+                             value="#{gerenciamentoPdaCliente.batePapo}"
+                             autoResize="false"
+                             disabled="true"
+                             id="txtArea"/>
+            <div align="center">
+                <p:commandLink oncomplete="verPda.show()"
+                               action="#{gerenciamentoPdaCliente.verPda(pda)}"
+                               update=":msn:verPda">
+                    <p:graphicImage value="../../../imagens/impressora.png" 
+                                    id="imgVisualizar" 
+                                    height="30px"
+                                    width="30px"/>
+                    <p:printer target="imgVisualizar"/>
+                    <p:tooltip for="imgVisualizar" 
+                               value="Imprimir" 
+                               showEffect="fade" 
+                               hideEffect="fade" />
+                </p:commandLink>
+            </div>
+
+
+        </p:dialog>
+
+    </h:body>
+</html>
+

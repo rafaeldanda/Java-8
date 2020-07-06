@@ -1,0 +1,51 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <h:head>
+        <title>Cadastro de Estado</title>
+    </h:head>
+    <h:body>
+        <form>
+            <p:dialog id="digCadastrar" 
+                      header="Cadastro/Alteração de Estados"
+                      widgetVar="estados">
+
+                <p:messages autoUpdate="true" showDetail="true" closable="true"/>
+                
+                <h:panelGrid columns="2" 
+                             cellpadding="5"
+                             id="gradeCadastro">  
+
+                    <h:outputLabel value="Nome:" />  
+                    <p:inputText value="#{gerenciamentoEstado.estado.nome}"
+                                 id="txtNome"
+                                 maxlength="50" 
+                                 size="50"/>
+
+
+                    <h:outputLabel value="Sigla:" /> 
+                    <p:inputText  value="#{gerenciamentoEstado.estado.sigla}" 
+                                  maxlength="2"
+                                  id="txtSigla" />
+
+
+                    <f:facet name="footer">
+                        <p:commandButton value="Cadastrar"
+                                         update=":msn:gradeCadastro,:msn:tabela"
+                                         actionListener="#{gerenciamentoEstado.cadastrar(action)}"/>
+
+
+                    </f:facet> 
+
+                </h:panelGrid> 
+
+            </p:dialog>
+        </form>
+    </h:body>
+</html>
+
